@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover"
+    />
+    <title>Latihan Soal | Sifat-Sifat Benda</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body data-page="latihan">
+    <main id="isi">
+      <section id="start" style="--a: #7b61ff">
+        <h2>Latihan soal</h2>
+        <p>
+          Waktunya menguji ilmu! Tidak ada batas waktu, jadi santai saja. Setiap
+          jawaban akan dijelaskan oleh Zahra.
+        </p>
+        <h3 class="step"><span class="no">1</span>Tulis namamu</h3>
+        <label class="nm" for="nama">Nama siswa:</label>
+        <input id="nama" type="text" maxlength="40" placeholder="Tulis namamu" autocomplete="off" />
+        <p class="warn" id="nmsg" hidden>Tulis namamu dulu ya!</p>
+        <h3 class="step"><span class="no">2</span>Pilih satu topik</h3>
+        <div class="topics" id="topics"></div>
+        <h3 class="step"><span class="no">3</span>Atau coba tantangan campuran</h3>
+        <div class="topics" id="mix"></div>
+        <p><a class="btn alt" href="index.html">← Kembali ke materi</a></p>
+      </section>
+
+      <section id="play" style="--a: #7b61ff" hidden>
+        <div class="qhead">
+          <span id="pn"></span>
+          <button class="exit" id="exit">✕ Keluar tugas</button>
+          <span id="ptopic" class="tag"></span>
+        </div>
+        <div class="bar"><i id="prog"></i></div>
+        <h2 id="qt" class="qt"></h2>
+        <div class="opts" id="opts"></div>
+        <div class="zahra">
+          <svg class="zv" aria-hidden="true"><use href="#zahra" /></svg>
+          <div class="bubble" id="fb" aria-live="polite"></div>
+        </div>
+        <div class="btns">
+          <button id="prev" class="alt">← Sebelumnya</button>
+          <button id="next" disabled>Lanjut →</button>
+        </div>
+      </section>
+
+      <section id="end" style="--a: #4fb870" hidden>
+        <h2>Hasil latihan</h2>
+        <p class="who">Nama: <b id="nm"></b> · <span id="tgl"></span> · Topik: <span id="etopic"></span></p>
+        <div class="result">
+          <div class="medal" id="medal"></div>
+          <div class="big-score" id="bs"></div>
+          <div id="title" class="rtitle"></div>
+        </div>
+        <div class="zahra">
+          <svg class="zv" aria-hidden="true"><use href="#zahra" /></svg>
+          <div class="bubble" id="rmsg" aria-live="polite"></div>
+        </div>
+        <div id="review"></div>
+        <div class="btns">
+          <button id="again">Ulangi topik ini</button>
+          <button class="alt" id="menu">Pilih topik lain</button>
+          <button class="alt2" onclick="window.print()">🖨️ Cetak hasil</button>
+          <a class="btn alt" href="index.html">Kembali ke materi</a>
+        </div>
+      </section>
+    </main>
+    <dialog id="dlg" aria-labelledby="dt">
+      <h3 id="dt">Keluar dari latihan?</h3>
+      <p>Kalau keluar sekarang, jawabanmu akan hilang dan nilainya tidak tersimpan.</p>
+      <div class="btns">
+        <button id="stay" class="alt">Lanjut mengerjakan</button>
+        <button id="leave" class="alt2">Ya, keluar</button>
+      </div>
+    </dialog>
+    <footer>Media belajar IPA · Sifat-sifat benda · Kelas 3-4 SD</footer>
+    <script src="common.js"></script>
+    <script src="latihan.js"></script>
+  </body>
+</html>

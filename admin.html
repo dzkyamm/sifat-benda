@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="robots" content="noindex" />
+    <title>Admin Guru | Zahra IPA</title>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body data-page="admin">
+    <main id="isi">
+      <section id="login" style="--a: #6a4df0">
+        <h2>🔒 Masuk guru</h2>
+        <form class="form" id="lf" autocomplete="off">
+          <label for="u">Username</label>
+          <input id="u" type="text" autocomplete="username" required />
+          <label for="p">Password</label>
+          <input id="p" type="password" autocomplete="current-password" required />
+          <p class="warn" id="lerr" hidden></p>
+          <div class="btns">
+            <button type="submit">Masuk</button>
+            <a class="btn alt2" href="index.html">← Kembali</a>
+          </div>
+        </form>
+      </section>
+
+      <div id="panel" hidden>
+        <section style="--a: #4fb870">
+          <h2>Hasil latihan siswa</h2>
+          <div class="stat">
+            <div><b id="sN">0</b>percobaan</div>
+            <div><b id="sS">0</b>siswa</div>
+            <div><b id="sA">-</b>rata-rata nilai</div>
+          </div>
+          <label class="nm" for="q">Cari nama siswa:</label>
+          <input id="q" type="search" placeholder="Ketik nama" />
+          <div class="tablewrap">
+            <table>
+              <thead>
+                <tr><th>Nama</th><th>Tanggal</th><th>Topik</th><th>Skor</th><th>Nilai</th><th></th></tr>
+              </thead>
+              <tbody id="rows"></tbody>
+            </table>
+          </div>
+          <p id="empty" hidden>Belum ada data.</p>
+          <div class="btns">
+            <button id="ref">🔄 Refresh</button>
+            <button class="alt" id="csv">⬇️ Unduh CSV</button>
+            <button class="alt2" id="clr">Hapus semua data</button>
+            <button id="pw" class="alt">🔑 Ganti password</button>
+            <a class="btn alt2" href="index.html">← Kembali</a>
+          </div>
+          <p class="who">
+            Data tersimpan di browser perangkat ini saja. Buka halaman ini di
+            perangkat yang sama dengan yang dipakai siswa.
+          </p>
+        </section>
+
+        <section id="cpcard" style="--a: #d63a63" hidden>
+          <h2>Ganti username / password</h2>
+          <form class="form" id="cf" autocomplete="off">
+            <label for="cp">Password saat ini</label>
+            <input id="cp" type="password" autocomplete="current-password" required />
+            <label for="nu">Username baru</label>
+            <input id="nu" type="text" autocomplete="username" required />
+            <label for="np">Password baru (min. 6 karakter)</label>
+            <input id="np" type="password" autocomplete="new-password" minlength="6" required />
+            <label for="np2">Ulangi password baru</label>
+            <input id="np2" type="password" autocomplete="new-password" required />
+            <p class="warn" id="cerr" hidden></p>
+            <div class="btns"><button type="submit">Simpan</button>
+              <button type="button" id="cancel" class="alt2">Batal</button></div>
+          </form>
+        </section>
+      </div>
+    </main>
+    <footer>Halaman khusus guru</footer>
+    <script src="common.js"></script>
+    <script src="admin.js"></script>
+  </body>
+</html>

@@ -1,0 +1,296 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover"
+    />
+    <title>Sifat-Sifat Benda | Belajar IPA Kelas 3-4 SD</title>
+    <meta
+      name="description"
+      content="Media belajar interaktif IPA kelas 3-4 SD: wujud benda, perubahan wujud, terapung dan tenggelam, serta sifat-sifat benda."
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body data-page="materi">
+    <main id="isi">
+      <section class="hero">
+        <span class="cloud" style="top: 8px">☁️</span>
+        <div class="herotext">
+          <span class="tag">Belajar IPA bersama Zahra · Kelas 3-4 SD</span>
+          <h1>Petualangan Sifat-Sifat Benda</h1>
+          <p>
+            Halo, teman-teman! Aku Zahra. Yuk kenalan dengan benda-benda di
+            sekitar kita dan buktikan sendiri sifat-sifatnya lewat percobaan
+            seru.
+          </p>
+          <p class="goal"><b>Setelah belajar, kamu bisa:</b></p>
+          <ul class="goal">
+            <li>menyebutkan tiga wujud benda dan cirinya,</li>
+            <li>menjelaskan perubahan wujud karena suhu,</li>
+            <li>menebak benda terapung atau tenggelam,</li>
+            <li>mengelompokkan benda berdasarkan sifatnya.</li>
+          </ul>
+          <div class="btns">
+            <button onclick="go('wujud')">Mulai belajar</button>
+            <a class="btn alt2" href="latihan.html">Langsung ke latihan soal</a>
+          </div>
+        </div>
+        <svg class="mascot" viewBox="0 0 150 170" aria-label="Maskot Zahra">
+          <ellipse cx="75" cy="162" rx="40" ry="6" fill="rgba(0,0,0,.15)" />
+          <rect x="25" y="60" width="100" height="95" rx="42" fill="#ff6f91" />
+          <use href="#zahra" x="25" y="-6" width="100" height="100" />
+        </svg>
+      </section>
+
+      <section id="wujud" style="--a: #1f78c8">
+        <h2><span class="no">1</span>Tiga wujud benda</h2>
+        <p class="ask">❓ Kenapa air bisa dituang, tapi batu tidak?</p>
+        <p>
+          Semua benda tersusun dari butiran yang kecil sekali. Pilih wujudnya,
+          lalu lihat butiran-butirannya bergerak!
+        </p>
+        <canvas
+          id="cv"
+          width="860"
+          height="260"
+          role="img"
+          aria-label="Animasi partikel benda padat, cair, dan gas"
+        ></canvas>
+        <div class="btns" id="modes">
+          <button data-m="padat" class="on">🧊 Padat</button>
+          <button data-m="cair" class="alt">💧 Cair</button>
+          <button data-m="gas" class="alt2">☁️ Gas</button>
+        </div>
+        <div class="zahra">
+          <svg class="zv" aria-hidden="true"><use href="#zahra" /></svg>
+          <div class="bubble" id="sayW" aria-live="polite"></div>
+        </div>
+      </section>
+
+      <section id="ubah" style="--a: #1d9a8a">
+        <h2><span class="no">2</span>Perubahan wujud</h2>
+        <p class="ask">❓ Apa yang terjadi pada es batu di bawah matahari?</p>
+        <p>
+          Wujud benda bisa berubah kalau suhunya berubah. Geser pengatur suhu
+          dan perhatikan air di bawah ini!
+        </p>
+        <canvas
+          id="cv2"
+          width="860"
+          height="260"
+          role="img"
+          aria-label="Animasi partikel air pada suhu yang berbeda"
+        ></canvas>
+        <div class="temp">
+          <label for="temp"
+            >Suhu: <b id="tv">25</b> °C &nbsp;·&nbsp;
+            <b id="tstate">Cair 💧</b></label
+          >
+          <input type="range" id="temp" min="-10" max="110" value="25" />
+          <div class="btns" id="tq">
+            <button data-t="-5">🥶 Freezer (-5 °C)</button>
+            <button data-t="25" class="alt">🏠 Suhu ruang (25 °C)</button>
+            <button data-t="100" class="alt2">🔥 Mendidih (100 °C)</button>
+          </div>
+        </div>
+        <div class="chips">
+          <div><b>Membeku</b><br />cair → padat</div>
+          <div><b>Mencair</b><br />padat → cair</div>
+          <div><b>Menguap</b><br />cair → gas</div>
+          <div><b>Mengembun</b><br />gas → cair</div>
+        </div>
+        <div class="zahra">
+          <svg class="zv" aria-hidden="true"><use href="#zahra" /></svg>
+          <div class="bubble" id="sayU" aria-live="polite"></div>
+        </div>
+      </section>
+
+      <section id="apung" style="--a: #d6891a">
+        <h2><span class="no">3</span>Terapung atau tenggelam?</h2>
+        <p class="ask">❓ Kenapa kapal besar yang berat bisa mengapung?</p>
+        <p>
+          Ilmuwan cilik selalu menebak dulu, baru mencoba. Pilih satu benda,
+          tebak, lalu jatuhkan ke air!
+        </p>
+        <div class="lab">
+          <div class="tank" id="tank"><div class="water"></div></div>
+          <div>
+            <div class="btns items" id="items"></div>
+            <div class="btns" id="pred" hidden>
+              <button class="alt" data-p="apung">🛟 Aku tebak: terapung</button>
+              <button class="alt2" data-p="tenggelam">
+                ⚓ Aku tebak: tenggelam
+              </button>
+            </div>
+            <div class="zahra">
+              <svg class="zv" aria-hidden="true"><use href="#zahra" /></svg>
+              <div class="bubble" id="sayA" aria-live="polite">
+                Pilih satu benda untuk memulai.
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="sifat" style="--a: #7b61ff">
+        <h2><span class="no">4</span>Sifat-sifat lain benda</h2>
+        <p class="ask">❓ Bagaimana cara kita mengenali sebuah benda?</p>
+        <p>
+          Ketuk kartu untuk membaliknya. Kita bisa mengenali sifat benda dengan
+          mata, tangan, dan hidung kita! Balik kelima kartu untuk dapat
+          bintang.
+        </p>
+        <div class="cards">
+          <button class="flip" style="--c: #ffc83d" aria-pressed="false">
+            <span class="f"><i class="big">🪨</i>Keras atau lunak?</span
+            ><span class="b"
+              >Benda keras sulit ditekan (batu, besi). Benda lunak mudah berubah
+              bentuk (spons, plastisin).</span
+            >
+          </button>
+          <button class="flip" style="--c: #9be3b0" aria-pressed="false">
+            <span class="f"><i class="big">🧶</i>Kasar atau halus?</span
+            ><span class="b"
+              >Rasakan permukaannya dengan tangan. Amplas terasa kasar, sutra
+              terasa halus.</span
+            >
+          </button>
+          <button class="flip" style="--c: #b9a8ff" aria-pressed="false">
+            <span class="f"><i class="big">🪟</i>Tembus cahaya?</span
+            ><span class="b"
+              >Kaca bening tembus cahaya. Kayu dan kardus tidak tembus
+              cahaya.</span
+            >
+          </button>
+          <button class="flip" style="--c: #ffa6bb" aria-pressed="false">
+            <span class="f"><i class="big">🧲</i>Tertarik magnet?</span
+            ><span class="b"
+              >Paku besi dan klip kertas ditarik magnet. Kayu, plastik, dan karet
+              tidak. Tidak semua logam ditarik magnet!</span
+            >
+          </button>
+          <button class="flip" style="--c: #8fd6ff" aria-pressed="false">
+            <span class="f"><i class="big">🔥</i>Menghantar panas?</span
+            ><span class="b"
+              >Sendok logam cepat panas di air hangat. Sendok kayu jauh lebih
+              lambat.</span
+            >
+          </button>
+        </div>
+      </section>
+
+      <section id="kelompok" style="--a: #d63a63">
+        <h2><span class="no">5</span>Ayo kelompokkan!</h2>
+        <p class="ask">❓ Mana benda yang keras, mana yang lunak?</p>
+        <p>
+          Ketuk satu benda, lalu ketuk keranjang yang tepat. Di komputer, kamu
+          juga bisa menyeret benda ke keranjang.
+        </p>
+        <div class="btns pool" id="pool" aria-label="Benda yang dikelompokkan"></div>
+        <div class="buckets">
+          <div
+            class="bucket"
+            id="b-keras"
+            tabindex="0"
+            role="button"
+            aria-label="Keranjang benda keras"
+          >
+            <h3>🪨 Keras</h3>
+            <div class="list"></div>
+          </div>
+          <div
+            class="bucket"
+            id="b-lunak"
+            tabindex="0"
+            role="button"
+            aria-label="Keranjang benda lunak"
+          >
+            <h3>🧽 Lunak</h3>
+            <div class="list"></div>
+          </div>
+        </div>
+        <div class="zahra">
+          <svg class="zv" aria-hidden="true"><use href="#zahra" /></svg>
+          <div class="bubble" id="sayK" aria-live="polite">
+            Pilih satu benda di atas ya!
+          </div>
+        </div>
+      </section>
+
+      <section id="rangkum" style="--a: #4fb870">
+        <h2>Rangkuman</h2>
+        <div class="tablewrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Wujud</th>
+                <th>Bentuk</th>
+                <th>Butiran</th>
+                <th>Contoh</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>🧊 Padat</td>
+                <td>Tetap</td>
+                <td>Rapat, bergetar di tempat</td>
+                <td>Es batu, batu, buku</td>
+              </tr>
+              <tr>
+                <td>💧 Cair</td>
+                <td>Mengikuti wadah</td>
+                <td>Berdekatan, bisa bergeser</td>
+                <td>Air, susu, jus</td>
+              </tr>
+              <tr>
+                <td>☁️ Gas</td>
+                <td>Memenuhi ruang</td>
+                <td>Berjauhan, bergerak cepat</td>
+                <td>Udara, uap air</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p>
+          Sekarang coba cari benda di rumahmu: mana yang keras, mana yang
+          halus, mana yang terapung di air? Ceritakan ke teman atau gurumu ya!
+        </p>
+        <div class="btns">
+          <a class="btn" href="latihan.html">Kerjakan latihan soal →</a>
+          <button class="alt" onclick="restart()">Ulangi dari awal</button>
+        </div>
+
+        <details class="guru">
+          <summary>Catatan untuk pengajar</summary>
+          <p><b>Alur pembelajaran (±45-60 menit)</b></p>
+          <ol>
+            <li>Pemantik (5 menit): tanyakan pertanyaan di tiap bagian.</li>
+            <li>Wujud benda dan perubahan wujud (15 menit): biarkan siswa mencoba sendiri, lalu minta mereka menjelaskan.</li>
+            <li>Terapung/tenggelam (10 menit): minta menebak dulu, lalu uji benda asli (batu, kayu, koin, telur).</li>
+            <li>Sifat benda dan mengelompokkan (10 menit): bawa magnet dan benda nyata bila ada.</li>
+            <li>Latihan soal dan refleksi (10-15 menit): bahas soal yang salah bersama.</li>
+          </ol>
+          <p><b>Miskonsepsi yang sering muncul</b></p>
+          <ul>
+            <li>Benda berat pasti tenggelam. Contoh tandingan: kapal besi terapung, sedangkan paku kecil tenggelam.</li>
+            <li>Semua logam ditarik magnet. Yang ditarik umumnya besi, baja, dan nikel; koin, aluminium, dan tembaga tidak.</li>
+            <li>Kepulan putih di atas air mendidih dianggap uap air. Uap air sendiri tidak terlihat; yang tampak adalah titik air kecil hasil pengembunan.</li>
+          </ul>
+          <p>
+            Materi ini mengacu pada topik wujud dan sifat benda di IPAS fase B
+            (kelas 3-4); sesuaikan dengan modul ajar yang dipakai.
+          </p>
+        </details>
+      </section>
+    </main>
+    <footer>Media belajar IPA · Sifat-sifat benda · Kelas 3-4 SD</footer>
+    <script src="common.js"></script>
+    <script src="materi.js"></script>
+  </body>
+</html>
