@@ -45,7 +45,7 @@ const INFO = {
     659,
   ],
 };
-function makeSim(cv, getMode) {
+function makeSim(cv, getMode, getTemp) {
   const cx = cv.getContext("2d"),
     W = cv.width,
     H = cv.height,
@@ -53,7 +53,7 @@ function makeSim(cv, getMode) {
   for (let i = 0; i < 40; i++) {
     const hx = W / 2 - 180 + (i % 10) * 40,
       hy = H / 2 - 60 + Math.floor(i / 10) * 40;
-    P.push({ hx, hy, x: hx, y: hy, vx: 0, vy: 0 });
+    P.push({ hx, hy, x: hx, y: hy, vx: 0, vy: 0, boil: 0 });
   }
   let vis = true,
     last = 0,
@@ -76,17 +76,30 @@ function makeSim(cv, getMode) {
     cx.clearRect(0, 0, W, H);
     const col = INFO[mode][1],
       sp = (mode === "gas" ? 5 : mode === "cair" ? 2.4 : 0) * k,
-      top = mode === "gas" ? 10 : 0;
+      top = mode === "gas" ? 10 : 0,
+      temp = getTemp ? getTemp() : null,
+      boilChance = mode === "cair" && temp !== null ? Math.max(0, (temp - 85) / 15) : 0;
     P.forEach((p) => {
       if (mode === "padat") {
+        p.boil = 0;
         p.x += (p.hx - p.x) * 0.15 + (Math.random() - 0.5) * 2.2;
         p.y += (p.hy - p.y) * 0.15 + (Math.random() - 0.5) * 2.2;
+        cx.fillStyle = col;
       } else {
-        const l = Math.hypot(p.vx, p.vy) || 1,
-          gx = mode === "cair" ? tiltX * 3 : 0,
-          gy = mode === "cair" ? 0.15 + tiltY * 3 : 0;
-        p.vx = (p.vx / l) * sp + (Math.random() - 0.5) * 0.4 + gx;
-        p.vy = (p.vy / l) * sp + (Math.random() - 0.5) * 0.4 + gy;
+        if (mode === "cair") {
+          if (p.boil > 0) p.boil -= k;
+          else if (boilChance > 0 && Math.random() < boilChance * 0.012 * k)
+            p.boil = 50 + Math.random() * 40;
+        } else {
+          p.boil = 0;
+        }
+        const boiling = p.boil > 0,
+          lsp = boiling ? 5.5 * k : sp,
+          l = Math.hypot(p.vx, p.vy) || 1,
+          gx = mode === "cair" && !boiling ? tiltX * 3 : 0,
+          gy = boiling ? -1.3 * k : mode === "cair" ? 0.15 + tiltY * 3 : 0;
+        p.vx = (p.vx / l) * lsp + (Math.random() - 0.5) * 0.4 + gx;
+        p.vy = (p.vy / l) * lsp + (Math.random() - 0.5) * 0.4 + gy;
         p.x += p.vx;
         p.y += p.vy;
         if (p.x < 14 || p.x > W - 14) {
@@ -96,9 +109,10 @@ function makeSim(cv, getMode) {
         if (p.y < top + 14 || p.y > H - 14) {
           p.vy *= -1;
           p.y = Math.min(H - 14, Math.max(top + 14, p.y));
+          if (boiling && p.y <= top + 14) p.boil = 0;
         }
+        cx.fillStyle = boiling ? "#eafaff" : col;
       }
-      cx.fillStyle = col;
       cx.beginPath();
       cx.arc(p.x, p.y, 13, 0, 6.28);
       cx.fill();
@@ -141,8 +155,9 @@ const stateOf = (t) => (t <= 0 ? "padat" : t < 100 ? "cair" : "gas"),
   },
   seenU = new Set(["cair"]);
 let mU = "cair";
-makeSim($("cv2"), () => mU);
+makeSim($("cv2"), () => mU, () => +$("temp").value);
 say("sayU", "Geser pengatur suhu ke kiri dan ke kanan, lalu lihat apa yang terjadi pada air!");
+let nearBoilShown = false;
 function setTemp(v) {
   v = +v;
   $("temp").value = v;
@@ -155,6 +170,16 @@ function setTemp(v) {
     tone(INFO[s][2], 0.15, "triangle");
     seenU.add(s);
     if (seenU.size === 3) markDone("ubah");
+    if (s !== "cair") nearBoilShown = false;
+  } else if (s === "cair" && v >= 85 && !nearBoilShown) {
+    nearBoilShown = true;
+    say(
+      "sayU",
+      "Lihat, mulai muncul gelembung-gelembung! Semakin dekat ke 100 °C, makin banyak butiran air yang berubah menjadi uap. Itu tandanya air hampir mendidih.",
+    );
+    tone(440, 0.12, "triangle");
+  } else if (s === "cair" && v < 85) {
+    nearBoilShown = false;
   }
 }
 $("temp").oninput = (e) => setTemp(e.target.value);
