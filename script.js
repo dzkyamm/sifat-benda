@@ -132,15 +132,15 @@ function tick(t) {
   cx.clearRect(0, 0, W, H);
   cx.fillStyle = info[mode][1];
   const sp = (mode === "gas" ? 5 : mode === "cair" ? 2.4 : 0) * k,
-    top = mode === "gas" ? 10 : mode === "cair" ? H * 0.5 : 0;
+    top = mode === "gas" ? 10 : 0;
   P.forEach((p) => {
     if (mode === "padat") {
       p.x += (p.hx - p.x) * 0.15 + (Math.random() - 0.5) * 2.2;
       p.y += (p.hy - p.y) * 0.15 + (Math.random() - 0.5) * 2.2;
     } else {
       const l = Math.hypot(p.vx, p.vy) || 1,
-        gx = mode === "cair" ? tiltX * 0.6 : 0,
-        gy = mode === "cair" ? 0.15 + tiltY * 0.6 : 0;
+        gx = mode === "cair" ? tiltX * 3 : 0,
+        gy = mode === "cair" ? 0.15 + tiltY * 3 : 0;
       p.vx = (p.vx / l) * sp + (Math.random() - 0.5) * 0.4 + gx;
       p.vy = (p.vy / l) * sp + (Math.random() - 0.5) * 0.4 + gy;
       p.x += p.vx;
