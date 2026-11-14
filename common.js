@@ -134,9 +134,10 @@ function paintStars() {
   $("stars").setAttribute("aria-label", n + " dari 5 bintang kegiatan");
 }
 let toastT;
-function toast(msg) {
+function toast(msg, top) {
   const t = $("toast");
   t.textContent = msg;
+  t.classList.toggle("top", !!top);
   t.classList.add("show");
   clearTimeout(toastT);
   toastT = setTimeout(() => t.classList.remove("show"), 2600);
@@ -147,7 +148,7 @@ function markDone(k) {
   p.push(k);
   store.set("prog", p);
   paintStars();
-  toast("⭐ Bintang baru: " + LABEL[k] + "!");
+  toast("⭐ Bintang baru: " + LABEL[k] + "!", true);
   setTimeout(p.length === 5 ? S.menang : S.benar, 150);
 }
 paintStars();

@@ -319,6 +319,9 @@ button:disabled {
   cursor: default;
   opacity: 1;
 }
+.gi:disabled {
+  pointer-events: none;
+}
 
 /* ---- Bubble Zahra ---- */
 .zahra {
@@ -724,6 +727,14 @@ input[type="search"] {
 }
 .toast.show {
   opacity: 1;
+  transform: translate(-50%, 0);
+}
+.toast.top {
+  bottom: auto;
+  top: calc(16px + env(safe-area-inset-top, 0px));
+  transform: translate(-50%, -30px);
+}
+.toast.top.show {
   transform: translate(-50%, 0);
 }
 
